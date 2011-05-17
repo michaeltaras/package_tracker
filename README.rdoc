@@ -23,5 +23,5 @@ Usage
     )
     
     @client.track("999999999999") # => Fedex package response
-    @client.track("999999999999") # => UPS package response
+    @client.track("1Z9999999999999999") # => UPS package response
     # and so on...
