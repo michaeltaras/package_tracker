@@ -1,15 +1,15 @@
+# Gems
 require 'rubygems'
-require 'fakeweb'
-require 'spec'
+require 'rspec'
+require 'webmock'
+require 'webmock/rspec'
 
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+# Standard Lib
+require 'yaml'
+
+# App
 require 'package_tracker'
 
-Spec::Runner.configure do |config|
-  FakeWeb.allow_net_connect = false
-  
-  # URI's for the app
-  AUTHENTICATED_URI = 'somedude:somepassword@api.trumpet.io'
-  UNAUTHENTICATED_URI = 'api.trumpet.io'
+RSpec.configure do |config|
+  # nothing here yet
 end

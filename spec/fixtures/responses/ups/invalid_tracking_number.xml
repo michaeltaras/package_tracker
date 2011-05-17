@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<TrackResponse>
+  <Response>
+    <TransactionReference>
+      <XpciVersion>1.0</XpciVersion>
+    </TransactionReference>
+    <ResponseStatusCode>0</ResponseStatusCode>
+    <ResponseStatusDescription>Failure</ResponseStatusDescription>
+    <Error>
+      <ErrorSeverity>Hard</ErrorSeverity>
+      <ErrorCode>151018</ErrorCode>
+      <ErrorDescription>Invalid tracking number</ErrorDescription>
+    </Error>
+  </Response>
+</TrackResponse>

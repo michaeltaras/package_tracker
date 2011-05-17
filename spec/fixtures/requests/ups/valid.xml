@@ -1,0 +1,17 @@
+<?xml version='1.0'?>
+  <AccessRequest xml:lang='en-US'>
+    <AccessLicenseNumber>3333</AccessLicenseNumber>
+    <UserId>1111</UserId>
+    <Password>2222</Password>
+  </AccessRequest>
+  <?xml version='1.0'?>
+  <TrackRequest xml:lang='en-US'>
+    <Request>
+      <TransactionReference>
+        <XpciVersion>1.0</XpciVersion>
+      </TransactionReference>
+      <RequestAction>Track</RequestAction>
+      <RequestOption>activity</RequestOption>
+    </Request>
+    <TrackingNumber>#{tracking_number}</TrackingNumber>
+  </TrackRequest>

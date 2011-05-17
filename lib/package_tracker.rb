@@ -3,22 +3,21 @@ $:.unshift File.dirname(__FILE__)
 # Gems
 require 'rubygems'
 require 'nokogiri'
+require 'facets'
+require 'facets/module/cattr'
 
 # Standard Lib
-require 'uri'
 require 'net/http'
 require 'net/https'
-require 'pp'
+require 'time'
+require 'uri'
 
 # Local Files
 require 'package_tracker/request'
+require 'package_tracker/response'
+require 'package_tracker/client'
+require 'package_tracker/exceptions'
 require 'package_tracker/carrier'
 require 'package_tracker/carriers/ups'
+require 'package_tracker/carriers/fedex'
 
-module PackageTracker
-end
-
-ups_tracker = PackageTracker::UPS.new(:key => "7C7C172CCF7747B8", :user_id => "michaeltaras", :password => "mtinsc")
-doc = Nokogiri::XML(ups_tracker.track("1Z12345E0291980793"))
-
-pp doc
