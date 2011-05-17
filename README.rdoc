@@ -1,17 +1,16 @@
-PackageTracker
-===========
+== PackageTracker
 
 PackageTracker is a ruby gem for fetching the status of a packages(UPS, FedEx, etc...) with a single method call.
 
-Installation
-------------
+
+== Installation
 
 To install:
 
     gem install package_tracker
 
-Usage
------
+
+== Usage
 
     require 'rubygems'
     require 'package_tracker'
