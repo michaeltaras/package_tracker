@@ -20,4 +20,3 @@ require 'package_tracker/exceptions'
 require 'package_tracker/carrier'
 require 'package_tracker/carriers/ups'
 require 'package_tracker/carriers/fedex'
-

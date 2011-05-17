@@ -1,6 +1,6 @@
 == PackageTracker
 
-PackageTracker is a ruby gem for fetching the status of a packages(UPS, FedEx, etc...) with a single method call.
+PackageTracker is a ruby gem for fetching the status of a packages(UPS, FedEx, etc...) with a simple API.  More Docs and carrier support to come soon...
 
 
 == Installation
@@ -21,6 +21,9 @@ To install:
       # and so on...
     )
     
-    @client.track("999999999999") # => Fedex package response
-    @client.track("1Z9999999999999999") # => UPS package response
+    fedex_response = @client.track("999999999999")
+    fedex_response.delivered? # => true
+    fedex_response.statuses # => [{:message => "DELIVERED", :location => "San Francsico, CA, USA", :time => 2011-04-22 00:00:00 -0700}, ...]
+    
+    ups_response = @client.track("1Z9999999999999999")
     # and so on...
