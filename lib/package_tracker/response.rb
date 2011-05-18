@@ -7,21 +7,25 @@ module PackageTracker
       @tracking_number = tracking_number
       @carrier = carrier
       @statuses = statuses
-      sort_statuses
+      sort_statuses!
     end
     
     def add_status(message, time, location="")
       @statuses << { :message => message, :time => time, :location => location }
-      sort_statuses
+      sort_statuses!
+    end
+        
+    def current_status
+      @statuses.first
     end
     
     def delivered?
-      @statuses.first[:message] == @carrier.delivered_status
+      current_status[:message] == @carrier.delivered_status
     end
     
     private
     
-    def sort_statuses
+    def sort_statuses!
       @statuses.sort_by! { |status| status[:time] }.reverse!
     end
   end
