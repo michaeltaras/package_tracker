@@ -52,14 +52,15 @@ describe 'FedEx' do
   end
   
   it 'should raise an error when an invalid tracking number is supplied' do
-    pending
+    lambda { @client.track(@invalid_tracking_number) }.should raise_error(PackageTracker::InvalidTrackingNumberError)
   end
   
   it 'should return a response object' do
-    pending
+    response = @client.track(@valid_tracking_number)
+    response.should be_an_instance_of(PackageTracker::Response)
   end
   
-  it 'should return the correct number of status activities' do
-    pending
+  it 'should return the correct number of statuses' do
+    @client.track(@valid_tracking_number).statuses.length.should == 8
   end
 end

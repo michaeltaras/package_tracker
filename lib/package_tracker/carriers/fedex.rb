@@ -93,11 +93,11 @@ module PackageTracker
       end
       
       def handle_errors(response)
-        document = Nokogiri::XML(response.body)
-        
+        document = Nokogiri::XML(response.body)     
         if document.children.first.namespace.prefix == "ns"
           raise InvalidCredentialsError if document.xpath("//ns:Notifications//ns:Code").text == "1000"
-          raise InvalidTrackingNumberError if document.xpath("//ns:Notifications//ns:Code").text == "9040"
+        elsif document.children.first.namespace.prefix == "v3"
+          raise InvalidTrackingNumberError if document.xpath("//v3:Notifications//v3:Code").text == "9040"
         end
       end
 
