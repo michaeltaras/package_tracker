@@ -25,6 +25,10 @@ module PackageTracker
       def match(tracking_number)
         tracking_number =~ /^\w{9}$/ || tracking_number =~ /^\d{12,15}$/ || tracking_number =~ /^96\d{20}$/
       end
+      
+      def delivered_status
+        "Delivered"
+      end
 
       private
     
