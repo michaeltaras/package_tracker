@@ -1,6 +1,6 @@
 = PackageTracker
 
-PackageTracker is a ruby gem for fetching the status of a packages(UPS, FedEx, etc...) with a simple API.  More Docs and carrier support to come soon...
+PackageTracker is a ruby gem for fetching the status of a packages(UPS, FedEx, etc...) with a simple API.  Currently only UPS and FedEx are supported.  More Docs and carrier support to come soon...
 
 
 == Installation
