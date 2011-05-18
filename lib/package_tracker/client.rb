@@ -18,7 +18,7 @@ module PackageTracker
       elsif carrier == :usps || Carriers::USPS.match(tracking_number)
         throw CarrierNotFoundError, "Need to impliment USPS"
       # DHL
-       else
+      else
         throw CarrierNotFoundError
       end
     end

@@ -25,3 +25,29 @@ To install:
     
     ups_response = @client.track("1Z9999999999999999")
     # and so on...
+
+== Configuration
+
+PackageTracker::Client::new takes a hash of credentials with the following parameters:
+
+    {
+      :ups => {
+        :key => "key"
+        :user_id => "user id"
+        :password => "password"
+      },
+      :fedex => {
+        :password => "password",
+        :key => "key",
+        :account => "account",
+        :meter => "meter number"
+      }
+    }
+    
+It's usually easiest to put those credentials in a YAML file and load them in.  That makes it easy to keep your sensitive password info out of git as well.
+
+If you just want to hit the carriers' test servers, you can set your client to test mode:
+    @client = PackageTracker::Client.new(Yaml.load_file("credentials.yaml"))
+    
+    @client.test_mode!
+    # => all requests will now to to the carriers' test servers
