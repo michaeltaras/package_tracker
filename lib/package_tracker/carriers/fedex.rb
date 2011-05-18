@@ -21,6 +21,10 @@ module PackageTracker
         )
         parse_response(tracking_number, repsonse)
       end
+      
+      def match(tracking_number)
+        tracking_number =~ /^\w{9}$/ || tracking_number =~ /^\d{12,15}$/ || tracking_number =~ /^96\d{20}$/
+      end
 
       private
     
@@ -66,28 +70,31 @@ module PackageTracker
       def parse_response(tracking_number, response)
         handle_errors(response)
 
-        tracking_response = Response.new(tracking_number, self)
-        
-        # puts Nokogiri::XML(response.body)
-        
+        tracking_response = Response.new(tracking_number, self)        
         Nokogiri::XML(response.body).xpath("//v3:Events").each do |event|
-          # puts "IN HERE???????"
-          puts event.xpath("v3:EventDescription").text
-          puts event.xpath("v3:Timestamp").text
+          location = nil
+          unless event.xpath("v3:Address//v3:City").empty?
+            location = "#{event.xpath("v3:Address//v3:City").text}," +
+                       "#{event.xpath("v3:Address//v3:StateOrProvinceCode").text}," + 
+                       "#{event.xpath("v3:Address//v3:CountryCode").text}"
+          end
           
-          puts ""
-          puts ""
-          # tracking_response.add_status(
-          #   activity.css("Status Description").text,
-          #   Time.parse(activity.css("Date").text) + activity.css("Time").text.to_i,
-          #   "#{activity.css("City Address").text}, #{activity.css("City StateProvinceCode").text}, #{activity.css("City StateProvinceCode").text}"
-          # )
+          tracking_response.add_status(
+            event.xpath("v3:EventDescription").text,
+            Time.parse(event.xpath("v3:Timestamp").text),
+            location
+          )
         end
         tracking_response
       end
       
       def handle_errors(response)
+        document = Nokogiri::XML(response.body)
         
+        if document.children.first.namespace.prefix == "ns"
+          raise InvalidCredentialsError if document.xpath("//ns:Notifications//ns:Code").text == "1000"
+          raise InvalidTrackingNumberError if document.xpath("//ns:Notifications//ns:Code").text == "9040"
+        end
       end
 
     end

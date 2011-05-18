@@ -16,13 +16,13 @@ module PackageTracker
     end
     
     def delivered?
-      @statuses.last[:message] == @carrier.delivered_status
+      @statuses.first[:message] == @carrier.delivered_status
     end
     
     private
     
     def sort_statuses
-      @statuses.sort_by! { |status| status[:time] }
+      @statuses.sort_by! { |status| status[:time] }.reverse!
     end
   end
 end

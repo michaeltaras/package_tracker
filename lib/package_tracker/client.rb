@@ -9,13 +9,13 @@ module PackageTracker
 
     def track(tracking_number, carrier=nil)
       # Fed Ex
-      if carrier == :fedex || tracking_number =~ /^\w{9}$/ || tracking_number =~ /^\d{12,15}$/ || tracking_number =~ /^96\d{20}$/
+      if carrier == :fedex || Carriers::FedEx.match(tracking_number)
         Carriers::FedEx.track(tracking_number, :credentials => @credentials[:fedex], :testing => testing?)
       # UPS
-      elsif carrier == :ups || tracking_number =~ /^1Z\d*/
+      elsif carrier == :ups || Carriers::UPS.match(tracking_number)
         Carriers::UPS.track(tracking_number, :credentials => @credentials[:ups], :testing => testing?)
       # USPS 
-      elsif carrier == :usps || tracking_number =~ /^\d{20}$/ || tracking_number =~ /^\d{30}$/ || tracking_number =~ /^[A-Za-z]{2}\d{9}[A-Za-z]{2}$/
+      elsif carrier == :usps || Carriers::USPS.match(tracking_number)
         throw CarrierNotFoundError, "Need to impliment USPS"
       # DHL
        else

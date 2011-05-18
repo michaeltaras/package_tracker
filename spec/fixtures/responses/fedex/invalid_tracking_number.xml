@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<v3:TrackReply xmlns:v3="http://fedex.com/ws/track/v3">
+  <v3:HighestSeverity>ERROR</v3:HighestSeverity>
+  <v3:Notifications>
+    <v3:Severity>ERROR</v3:Severity>
+    <v3:Source>trck</v3:Source>
+    <v3:Code>9040</v3:Code>
+    <v3:Message>No information for the following shipments has been received by our system yet.  Please try again or contact Customer Service at 1.800.Go.FedEx(R) 800.463.3339.</v3:Message>
+    <v3:LocalizedMessage>No information for the following shipments has been received by our system yet.  Please try again or contact Customer Service at 1.800.Go.FedEx(R) 800.463.3339.</v3:LocalizedMessage>
+  </v3:Notifications>
+  <v3:TransactionDetail>
+    <v3:CustomerTransactionId>Package Tracker Ruby Gem</v3:CustomerTransactionId>
+  </v3:TransactionDetail>
+  <v3:Version>
+    <v3:ServiceId>trck</v3:ServiceId>
+    <v3:Major>3</v3:Major>
+    <v3:Intermediate>0</v3:Intermediate>
+    <v3:Minor>0</v3:Minor>
+  </v3:Version>
+  <v3:DuplicateWaybill>false</v3:DuplicateWaybill>
+  <v3:MoreData>false</v3:MoreData>
+</v3:TrackReply>

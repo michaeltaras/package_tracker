@@ -11,7 +11,11 @@ module PackageTracker
       def track(tracking_number, options)
         validate_credentials!(options[:credentials])
         repsonse = Request.post(request_url(options[:testing]), PATH, request_data(tracking_number, options[:credentials]))
-        parse_response(repsonse)
+        parse_response(tracking_number, repsonse)
+      end
+      
+      def match(tracking_number)
+        tracking_number =~ /^1Z\d*/
       end
     
       def delivered_status
@@ -49,7 +53,7 @@ module PackageTracker
         "
       end
   
-      def parse_response(response)
+      def parse_response(tracking_number, response)
         handle_errors(response)
 
         tracking_response = Response.new(tracking_number, self)
