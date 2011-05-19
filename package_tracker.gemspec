@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
     "lib/package_tracker/exceptions.rb",
     "lib/package_tracker/request.rb",
     "lib/package_tracker/response.rb",
+    "package_tracker.gemspec",
     "spec/carrier/fedex_spec.rb",
     "spec/carrier/ups_spec.rb",
     "spec/carrier_spec.rb",
