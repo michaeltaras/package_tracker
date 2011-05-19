@@ -69,11 +69,14 @@ describe 'FedEx' do
   end
   
   it 'should properly parse the location the statuses' do
-    statuses = @client.track(@valid_tracking_number).statuses
+    response = @client.track(@valid_tracking_number)
+    statuses = response.statuses
     
     statuses[0][:location].should == "San Francisco, CA, US"
     statuses[4][:location].should == "SACRAMENTO, CA, US"
     statuses[7][:location].should be nil
+    
+    response.current_location.should == "San Francisco, CA, US"
   end
   
   it 'should return the statuses in chronological order' do

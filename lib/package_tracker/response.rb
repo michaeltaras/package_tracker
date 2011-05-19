@@ -14,9 +14,13 @@ module PackageTracker
       @statuses << { :message => message, :time => time, :location => location }
       sort_statuses!
     end
-        
+
     def current_status
       @statuses.first
+    end
+    
+    def current_location
+      current_status[:location]
     end
     
     def delivered?

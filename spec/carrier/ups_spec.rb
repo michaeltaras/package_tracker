@@ -71,11 +71,14 @@ describe "UPS" do
   end
   
   it 'should properly parse the location the statuses' do
-    statuses = @client.track(@valid_tracking_number).statuses
+    response = @client.track(@valid_tracking_number)
+    statuses = response.statuses
     
     statuses[0][:location].should == "SAN FRANCISCO, CA, US"
     statuses[6][:location].should == "SAN PABLO, CA, US"
     statuses[12][:location].should == "US"
+    
+    response.current_location.should == "SAN FRANCISCO, CA, US"
   end
   
   it 'should return the statuses in chronological order' do
