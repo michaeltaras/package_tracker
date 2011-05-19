@@ -25,7 +25,7 @@ module PackageTracker
       private
       
       def request_url(testing)
-        testing ? TEST_URL : LIVE_URL
+        TEST_URL # apparently we don't need the live url for tracking
       end
   
       def required_credentials
@@ -55,7 +55,7 @@ module PackageTracker
   
       def parse_response(tracking_number, response)
         handle_errors(response)
-
+        
         tracking_response = Response.new(tracking_number, self)
         Nokogiri::XML(response.body).css("Package Activity").each do |activity|
           tracking_response.add_status(
