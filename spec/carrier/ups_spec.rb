@@ -10,20 +10,17 @@ describe "UPS" do
     @client = PackageTracker::Client.new(:ups => @valid_credentials)
     @invalid_credentials_client = PackageTracker::Client.new(:ups => @invalid_credentials)
     
-    stub_request(:post, "http://www.ups.com/ups.app/xml/Track")
+    stub_request(:post, "http://wwwcie.ups.com/ups.app/xml/Track")
       .with(:body => PackageTracker::Carriers::UPS.send(:request_data, @valid_tracking_number, @valid_credentials))
       .to_return(:body => File.new("spec/fixtures/responses/ups/valid.xml"), :status => 200)
       
-    stub_request(:post, "http://www.ups.com/ups.app/xml/Track")
+    stub_request(:post, "http://wwwcie.ups.com/ups.app/xml/Track")
       .with(:body => PackageTracker::Carriers::UPS.send(:request_data, @valid_tracking_number, @invalid_credentials))
       .to_return(:body => File.new("spec/fixtures/responses/ups/invalid_credentials.xml"), :status => 200)
       
-    stub_request(:post, "http://www.ups.com/ups.app/xml/Track")
+    stub_request(:post, "http://wwwcie.ups.com/ups.app/xml/Track")
       .with(:body => PackageTracker::Carriers::UPS.send(:request_data, @invalid_tracking_number, @valid_credentials))
       .to_return(:body => File.new("spec/fixtures/responses/ups/invalid_tracking_number.xml"), :status => 200)
-
-    stub_request(:post, "http://wwwcie.ups.com/ups.app/xml/Track")
-      .to_return(:body => File.new("spec/fixtures/responses/ups/valid.xml"), :status => 200)
   end
   
   it 'should send requests to the test server when in test mode' do
@@ -35,7 +32,7 @@ describe "UPS" do
   
   it 'should send requests to the live server when in production mode' do
     @client.track(@valid_tracking_number)
-    WebMock.should have_requested(:post, "http://www.ups.com/ups.app/xml/Track")
+    WebMock.should have_requested(:post, "http://wwwcie.ups.com/ups.app/xml/Track")
   end
   
   it 'should handle missing credentials' do
@@ -66,10 +63,23 @@ describe "UPS" do
   end
   
   it 'should return the correct number of status activities' do
-    @client.track(@valid_tracking_number).statuses.length.should == 13
+    @client.track(@valid_tracking_number).statuses.length.should be 13
   end
   
   it 'should be able to verify delivery' do
-    @client.track(@valid_tracking_number).delivered?.should == true
+    @client.track(@valid_tracking_number).delivered?.should be true
+  end
+  
+  it 'should properly parse the location the statuses' do
+    statuses = @client.track(@valid_tracking_number).statuses
+    
+    statuses[0][:location].should == "SAN FRANCISCO, CA, US"
+    statuses[6][:location].should == "SAN PABLO, CA, US"
+    statuses[12][:location].should == "US"
+  end
+  
+  it 'should return the statuses in chronological order' do
+    statuses = @client.track(@valid_tracking_number).statuses
+    statuses.should == statuses.sort_by { |status| status[:time] }.reverse
   end
 end

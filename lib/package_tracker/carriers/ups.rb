@@ -58,10 +58,15 @@ module PackageTracker
         
         tracking_response = Response.new(tracking_number, self)
         Nokogiri::XML(response.body).css("Package Activity").each do |activity|
+          location = ""
+          location += "#{activity.css("City").text}, " unless activity.css("City").empty?
+          location += "#{activity.css("StateProvinceCode").text}, " unless activity.css("StateProvinceCode").empty?
+          location += "#{activity.css("CountryCode").text}"
+          
           tracking_response.add_status(
             activity.css("Status Description").text,
-            Time.parse(activity.css("Date").text) + activity.css("Time").text.to_i,
-            "#{activity.css("City Address").text}, #{activity.css("City StateProvinceCode").text}, #{activity.css("City StateProvinceCode").text}"
+            Time.parse(activity.css("Date").text + activity.css("Time").text),
+            location
           )
         end
         tracking_response

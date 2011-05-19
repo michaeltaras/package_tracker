@@ -63,4 +63,21 @@ describe 'FedEx' do
   it 'should return the correct number of statuses' do
     @client.track(@valid_tracking_number).statuses.length.should == 8
   end
+  
+  it 'should be able to verify delivery' do
+    @client.track(@valid_tracking_number).delivered?.should be true
+  end
+  
+  it 'should properly parse the location the statuses' do
+    statuses = @client.track(@valid_tracking_number).statuses
+    
+    statuses[0][:location].should == "San Francisco, CA, US"
+    statuses[4][:location].should == "SACRAMENTO, CA, US"
+    statuses[7][:location].should be nil
+  end
+  
+  it 'should return the statuses in chronological order' do
+    statuses = @client.track(@valid_tracking_number).statuses
+    statuses.should == statuses.sort_by { |status| status[:time] }.reverse
+  end
 end

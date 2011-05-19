@@ -76,11 +76,10 @@ module PackageTracker
 
         tracking_response = Response.new(tracking_number, self)        
         Nokogiri::XML(response.body).xpath("//v3:Events").each do |event|
-          location = nil
-          unless event.xpath("v3:Address//v3:City").empty?
-            location = "#{event.xpath("v3:Address//v3:City").text}," +
-                       "#{event.xpath("v3:Address//v3:StateOrProvinceCode").text}," + 
-                       "#{event.xpath("v3:Address//v3:CountryCode").text}"
+          location = unless event.xpath("v3:Address//v3:City").empty?
+            "#{event.xpath("v3:Address//v3:City").text}, " +
+            "#{event.xpath("v3:Address//v3:StateOrProvinceCode").text}, " + 
+            "#{event.xpath("v3:Address//v3:CountryCode").text}"
           end
           
           tracking_response.add_status(
