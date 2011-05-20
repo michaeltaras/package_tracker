@@ -7,6 +7,10 @@ module PackageTracker
       TEST_URL = "wwwcie.ups.com"
       LIVE_URL = "www.ups.com"
       PATH = "/ups.app/xml/Track"
+      
+      def name
+        "UPS"
+      end
 
       def track(tracking_number, options)
         validate_credentials!(options[:credentials])

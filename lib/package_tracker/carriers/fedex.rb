@@ -9,6 +9,10 @@ module PackageTracker
     
       PATH = "/xml"
       PORT = "443"
+      
+      def name
+        "FedEx"
+      end
         
       def track(tracking_number, options)
         validate_credentials!(options[:credentials])
@@ -92,7 +96,7 @@ module PackageTracker
       end
       
       def handle_errors(response)
-        document = Nokogiri::XML(response.body)     
+        document = Nokogiri::XML(response.body)
         if document.children.first.namespace.prefix == "ns"
           raise InvalidCredentialsError if document.xpath("//ns:Notifications//ns:Code").text == "1000"
         elsif document.children.first.namespace.prefix == "v3"

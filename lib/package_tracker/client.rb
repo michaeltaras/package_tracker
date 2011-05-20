@@ -1,7 +1,6 @@
 module PackageTracker
   class Client
     attr_accessor :credentials
-    attr_reader :mode
 
     def initialize(credentials={})
       @credentials = credentials
@@ -16,13 +15,13 @@ module PackageTracker
         Carriers::UPS.track(tracking_number, :credentials => @credentials[:ups], :testing => testing?)
       # USPS 
       elsif carrier == :usps || Carriers::USPS.match(tracking_number)
-        raise CarrierNotFoundError, "Need to impliment USPS"
+        Carriers::USPS.track(tracking_number, :credentials => @credentials[:usps], :testing => testing?)
       # DHL
       else
         raise CarrierNotFoundError
       end
     end
-        
+
     def testing?
       @mode == "testing"
     end

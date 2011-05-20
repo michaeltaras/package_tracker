@@ -52,7 +52,7 @@ describe "UPS" do
   end
   
   it 'should properly build the request body' do
-    @client.track(@valid_tracking_number)
+    # @client.track(@valid_tracking_number)
     # WebMock.should have_requested(:post, "http://www.ups.com/ups.app/xml/Track").with(:body => File.new("spec/fixtures/requests/ups/valid.xml").read)
     pending "Not Exactly sure of the best way to test this"
   end
