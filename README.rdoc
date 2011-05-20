@@ -12,9 +12,9 @@ To install:
 
 == Usage
 
-    @client = PackageTracker::Client.new(Yaml.load_file("credentials.yaml"))
+    client = PackageTracker::Client.new(Yaml.load_file("credentials.yaml"))
     
-    fedex_response = @client.track("999999999999")
+    fedex_response = client.track("999999999999")
     # => PackageTracker::Response
     
     fedex_response.delivered? 
@@ -23,8 +23,10 @@ To install:
     fedex_response.statuses 
     # => [{:message => "DELIVERED", :location => "San Francsico, CA, USA", :time => 2011-04-22 00:00:00 -0700}, ...]
     
-    ups_response = @client.track("1Z9999999999999999")
+    ups_response = client.track("1Z9999999999999999")
+    
     # and so on...
+
 
 == Configuration
 
@@ -41,13 +43,24 @@ PackageTracker::Client::new takes a hash of credentials with the following param
         :key => "key",
         :account => "account",
         :meter => "meter number"
+      },
+      :usps => {
+        :username => "username",
+        :password => "password"
       }
     }
     
 It's usually easiest to put those credentials in a YAML file and load them in.  That makes it easy to keep your sensitive password info out of git as well.
 
+
+If you don't want to use the build in tracking number detection, you can specify which carrier to use with a tracking request:
+
+    client.track("999999999999", :ups)
+    # Sent directly to ups api
+
+
 If you just want to hit the carriers' test servers, you can set your client to test mode:
-    @client = PackageTracker::Client.new(Yaml.load_file("credentials.yaml"))
+    client = PackageTracker::Client.new(Yaml.load_file("credentials.yaml"))
     
-    @client.test_mode!
-    # => all requests will now to to the carriers' test servers
+    client.test_mode!
+    # all requests will now to to the carriers' test servers
