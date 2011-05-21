@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe 'FedEx' do  
   before do
-    @valid_credentials = {:user_id => "556MICHA5644", :password => "597RG17CA755"}
+    @valid_credentials = {:user_id => "1111", :password => "2222"}
     @invalid_credentials = {:user_id => "3333", :password => "4444"}
     @valid_tracking_number = "EJ958083578US"
     @invalid_tracking_number = "EJ000000000US"
