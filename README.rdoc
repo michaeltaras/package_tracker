@@ -50,10 +50,10 @@ PackageTracker::Client::new takes a hash of credentials with the following param
       }
     }
     
-It's usually easiest to put those credentials in a YAML file and load them in.  That makes it easy to keep your sensitive password info out of git as well.
+It's usually easiest to put those credentials in a YAML file and load them in.  That makes it easy to keep your sensitive password info out of version control as well.
 
 
-If you don't want to use the build in tracking number detection, you can specify which carrier to use with a tracking request:
+If you don't want to use the built in tracking number detection, you can specify which carrier to use with a tracking request:
 
     client.track("999999999999", :ups)
     # Sent directly to ups api
