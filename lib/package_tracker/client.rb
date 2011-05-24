@@ -31,7 +31,7 @@ module PackageTracker
     end
     
     def production_mode!
-      @mode == "production"
+      @mode = "production"
     end
   end
 end
